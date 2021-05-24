@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.test.twitter.App">
+  <grid id="27dc6" binding="panelMain" layout-manager="GridLayoutManager" row-count="4" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="0" left="0" bottom="0" right="0"/>
+    <constraints>
+      <xy x="20" y="20" width="820" height="699"/>
+    </constraints>
+    <properties>
+      <background color="-16732946"/>
+      <foreground color="-1380628"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <component id="f684c" class="javax.swing.JTextField" binding="tfSearchBar">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="4" hsize-policy="6" anchor="8" fill="0" indent="0" use-parent-layout="false">
+            <minimum-size width="300" height="30"/>
+            <preferred-size width="606" height="30"/>
+          </grid>
+        </constraints>
+        <properties>
+          <text value="Enter your search here"/>
+        </properties>
+      </component>
+      <component id="8d9e6" class="javax.swing.JList" binding="list1" default-binding="true">
+        <constraints>
+          <grid row="3" column="0" row-span="1" col-span="2" vsize-policy="2" hsize-policy="2" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <minimum-size width="100" height="100"/>
+            <preferred-size width="150" height="50"/>
+          </grid>
+        </constraints>
+        <properties>
+          <background color="-16732946"/>
+          <enabled value="false"/>
+          <foreground color="-16732946"/>
+          <model/>
+          <selectionForeground color="-16732946"/>
+        </properties>
+      </component>
+      <component id="17082" class="javax.swing.JButton" binding="btnEnter">
+        <constraints>
+          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false">
+            <minimum-size width="200" height="20"/>
+          </grid>
+        </constraints>
+        <properties>
+          <text value="Button"/>
+        </properties>
+      </component>
+      <component id="b4c84" class="javax.swing.JTextPane" binding="txtSubtitle">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="6" hsize-policy="6" anchor="0" fill="0" indent="0" use-parent-layout="false">
+            <minimum-size width="500" height="50"/>
+            <preferred-size width="500" height="50"/>
+          </grid>
+        </constraints>
+        <properties>
+          <background color="-16732946"/>
+          <contentType value="text/plain"/>
+          <editable value="false"/>
+          <enabled value="true"/>
+          <font name="Century Gothic" size="28" style="0"/>
+          <foreground color="-262147"/>
+          <text value="Find the Tweet, it's Pretty Neat!"/>
+        </properties>
+      </component>
+      <component id="bb3b0" class="javax.swing.JTextPane" binding="txtTitle">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="6" hsize-policy="6" anchor="4" fill="0" indent="0" use-parent-layout="false">
+            <minimum-size width="600" height="150"/>
+            <preferred-size width="600" height="150"/>
+          </grid>
+        </constraints>
+        <properties>
+          <background color="-16732946"/>
+          <contentType value="text/plain"/>
+          <editable value="false"/>
+          <enabled value="true"/>
+          <font name="Dubai Medium" size="72" style="1"/>
+          <foreground color="-262147"/>
+          <text value="Tweet Finder"/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>
