@@ -19,6 +19,7 @@ public class App {
     private JList list1;
     private JTextPane txtTitle;
     private JTextPane txtSubtitle;
+    private JLabel lblBird;
     private ArrayList<String> searchFields = new ArrayList<>();
 
     /**

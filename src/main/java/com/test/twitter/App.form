@@ -3,7 +3,7 @@
   <grid id="27dc6" binding="panelMain" layout-manager="GridLayoutManager" row-count="4" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="5" vgap="5">
     <margin top="5" left="5" bottom="5" right="5"/>
     <constraints>
-      <xy x="20" y="20" width="1246" height="699"/>
+      <xy x="20" y="20" width="1240" height="699"/>
     </constraints>
     <properties>
       <background color="-16732946"/>
@@ -11,7 +11,10 @@
       <focusCycleRoot value="false"/>
       <foreground color="-1380628"/>
       <inheritsPopupMenu value="false"/>
+      <maximumSize width="1566" height="600"/>
       <opaque value="true"/>
+      <preferredSize width="1000" height="500"/>
+      <requestFocusEnabled value="false"/>
     </properties>
     <border type="none"/>
     <children>
@@ -28,26 +31,6 @@
           <opaque value="true"/>
           <selectedTextColor color="-16382458"/>
           <text value="Enter your search here" noi18n="true"/>
-        </properties>
-      </component>
-      <component id="8d9e6" class="javax.swing.JList" binding="list1" default-binding="true">
-        <constraints>
-          <grid row="3" column="0" row-span="1" col-span="3" vsize-policy="2" hsize-policy="2" anchor="0" fill="3" indent="5" use-parent-layout="false">
-            <minimum-size width="100" height="100"/>
-            <preferred-size width="150" height="50"/>
-          </grid>
-        </constraints>
-        <properties>
-          <background color="-16732946"/>
-          <enabled value="false"/>
-          <foreground color="-262147"/>
-          <inheritsPopupMenu value="false"/>
-          <model/>
-          <opaque value="true"/>
-          <selectionBackground color="-16732946"/>
-          <selectionForeground color="-16382458"/>
-          <visible value="true"/>
-          <visibleRowCount value="5"/>
         </properties>
       </component>
       <component id="17082" class="javax.swing.JButton" binding="btnEnter">
@@ -99,6 +82,36 @@
           <foreground color="-1"/>
           <opaque value="true"/>
           <text value="Tweet Finder"/>
+        </properties>
+      </component>
+      <component id="8d9e6" class="javax.swing.JList" binding="list1" default-binding="true">
+        <constraints>
+          <grid row="3" column="0" row-span="1" col-span="3" vsize-policy="2" hsize-policy="2" anchor="0" fill="3" indent="5" use-parent-layout="false">
+            <minimum-size width="100" height="100"/>
+            <preferred-size width="150" height="50"/>
+          </grid>
+        </constraints>
+        <properties>
+          <background color="-16732946"/>
+          <enabled value="false"/>
+          <foreground color="-262147"/>
+          <inheritsPopupMenu value="false"/>
+          <model/>
+          <opaque value="true"/>
+          <selectionBackground color="-16732946"/>
+          <selectionForeground color="-16382458"/>
+          <visible value="true"/>
+          <visibleRowCount value="5"/>
+        </properties>
+      </component>
+      <component id="2f82d" class="javax.swing.JLabel" binding="lblBird">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <icon value="bird.JPG"/>
+          <opaque value="true"/>
+          <text value=""/>
         </properties>
       </component>
     </children>
