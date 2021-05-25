@@ -92,6 +92,7 @@
           </grid>
         </constraints>
         <properties>
+          <autoscrolls value="false"/>
           <background color="-16732946"/>
           <enabled value="false"/>
           <foreground color="-262147"/>

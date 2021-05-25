@@ -1,10 +1,15 @@
 package com.test.twitter;
 
+import twitter4j.*;
+import twitter4j.auth.Authorization;
+import twitter4j.conf.ConfigurationBuilder;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 /**
  * Twitter Search Program
@@ -31,9 +36,37 @@ public class App {
             public void actionPerformed(ActionEvent actionEvent) {
                 //write code to show message
                 JOptionPane.showMessageDialog(null, "Hello World!");
-                createList();
+                try {
+                    searchTweets(tfSearchBar);
+                } catch (TwitterException e) {
+                    e.printStackTrace();
+                }
             }
         });
+    }
+
+    public static ArrayList<String> searchTweets(JTextField tfSearchBar) throws TwitterException{
+        ConfigurationBuilder cb = new ConfigurationBuilder();
+        cb.setDebugEnabled(true)
+        .setOAuthConsumerKey("dtMTeDPWds1fTW1NYcGea9iBI")
+        .setOAuthConsumerSecret("IEMsYzxXkOhXIxiWWPXecCJfGj2QgO5SlxdWPOOrEiLDUaoRKs")
+        .setOAuthAccessToken("1396867457101541376-93fHVRncPQxQxHH1igIfNy47a401Ww")
+        .setOAuthAccessTokenSecret("B5oZljI22OWu4qtyavf2SAyEXxHBZhYik33vSPx4DHOxf");
+        TwitterFactory tf = new TwitterFactory(cb.build());
+        Twitter twitter = tf.getInstance();
+
+
+        ArrayList<String> tweetList = new ArrayList();
+        //TwitterFactory twitter = (TwitterFactory) new TwitterFactory().getInstance();
+        Query query = new Query(tfSearchBar.getText().toString());
+
+        QueryResult result = twitter.search(query);
+
+        ArrayList<String> list = new ArrayList<>();
+        tweetList.addAll(result.getTweets().stream().map(item-> item.getText()).collect(Collectors.toList()));
+
+        System.out.print(tweetList.toString());
+        return tweetList;
     }
 
     /**
@@ -44,13 +77,16 @@ public class App {
         list1.setListData(searchFields.toArray());
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         //create JFrame
-        JFrame frame = new JFrame("Twitter Finder");
+        JFrame frame = new JFrame("Twitter Tweet Finder");
         frame.setContentPane(new App().panelMain);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
+
+
+
     }
 
 
