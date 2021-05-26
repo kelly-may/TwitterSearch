@@ -41,6 +41,8 @@ public class App {
                     Twitter connection = connectTwitter(); //connect to twitter
                     ArrayList<String> results = new ArrayList<>();
                     results.addAll(searchTweets(connection, tfSearchBar));
+
+                    //need to figure out how to add results to Jlist and display in GUI
                     for(int i = 0; i < results.size(); i++){
                         listModel.addElement(results.get(i));
                         list1.setVisible(true);

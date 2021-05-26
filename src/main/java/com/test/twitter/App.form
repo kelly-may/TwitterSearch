@@ -63,7 +63,7 @@
           <font name="Century Gothic" size="28" style="0"/>
           <foreground color="-1"/>
           <opaque value="true"/>
-          <text value="Find the Tweet, it's Pretty Neat!"/>
+          <text value="Find the Tweet, it's Pretty Neat!" noi18n="true"/>
         </properties>
       </component>
       <component id="bb3b0" class="javax.swing.JTextPane" binding="txtTitle">
@@ -81,7 +81,7 @@
           <font name="Dubai Medium" size="72" style="1"/>
           <foreground color="-1"/>
           <opaque value="true"/>
-          <text value="Tweet Finder"/>
+          <text value="Tweet Finder" noi18n="true"/>
         </properties>
       </component>
       <component id="2f82d" class="javax.swing.JLabel" binding="lblBird">
