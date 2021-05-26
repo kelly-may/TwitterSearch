@@ -21,23 +21,30 @@ public class App {
     private JButton btnEnter;
     private JPanel panelMain;
     private JTextField tfSearchBar;
-    private JList list1;
+    private DefaultListModel listModel = new DefaultListModel();
+    private JList list1 = new JList(listModel);
     private JTextPane txtTitle;
     private JTextPane txtSubtitle;
     private JLabel lblBird;
     private ArrayList<String> searchFields = new ArrayList<>();
 
     /**
-     * App - holds listeners
+     * App - holds listeners for the Enter button on search.
      */
     public App() {
         btnEnter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 //write code to show message
-                JOptionPane.showMessageDialog(null, "Hello World!");
+                //JOptionPane.showMessageDialog(null, "Hello World!");
                 try {
-                    searchTweets(tfSearchBar);
+                    Twitter connection = connectTwitter(); //connect to twitter
+                    ArrayList<String> results = new ArrayList<>();
+                    results.addAll(searchTweets(connection, tfSearchBar));
+                    for(int i = 0; i < results.size(); i++){
+                        listModel.addElement(results.get(i));
+                        list1.setVisible(true);
+                    }
                 } catch (TwitterException e) {
                     e.printStackTrace();
                 }
@@ -45,16 +52,13 @@ public class App {
         });
     }
 
-    public static ArrayList<String> searchTweets(JTextField tfSearchBar) throws TwitterException{
-        ConfigurationBuilder cb = new ConfigurationBuilder();
-        cb.setDebugEnabled(true)
-        .setOAuthConsumerKey("dtMTeDPWds1fTW1NYcGea9iBI")
-        .setOAuthConsumerSecret("IEMsYzxXkOhXIxiWWPXecCJfGj2QgO5SlxdWPOOrEiLDUaoRKs")
-        .setOAuthAccessToken("1396867457101541376-93fHVRncPQxQxHH1igIfNy47a401Ww")
-        .setOAuthAccessTokenSecret("B5oZljI22OWu4qtyavf2SAyEXxHBZhYik33vSPx4DHOxf");
-        TwitterFactory tf = new TwitterFactory(cb.build());
-        Twitter twitter = tf.getInstance();
-
+    /**
+     * searchTweets - takes the twitter connection, and the input from tfSearchBar to fill a list with search results
+     * @param twitter, tfSearchBar
+     * @return
+     * @throws TwitterException
+     */
+    public static ArrayList<String> searchTweets(Twitter twitter, JTextField tfSearchBar) throws TwitterException{
 
         ArrayList<String> tweetList = new ArrayList();
         //TwitterFactory twitter = (TwitterFactory) new TwitterFactory().getInstance();
@@ -62,11 +66,26 @@ public class App {
 
         QueryResult result = twitter.search(query);
 
-        ArrayList<String> list = new ArrayList<>();
         tweetList.addAll(result.getTweets().stream().map(item-> item.getText()).collect(Collectors.toList()));
 
         System.out.print(tweetList.toString());
         return tweetList;
+    }
+
+    /**
+     * connectTwitter - uses OAuth to connect and configure to Twitter
+     * @return
+     */
+    public Twitter connectTwitter(){
+        ConfigurationBuilder cb = new ConfigurationBuilder();
+        cb.setDebugEnabled(true)
+                .setOAuthConsumerKey("dtMTeDPWds1fTW1NYcGea9iBI")
+                .setOAuthConsumerSecret("IEMsYzxXkOhXIxiWWPXecCJfGj2QgO5SlxdWPOOrEiLDUaoRKs")
+                .setOAuthAccessToken("1396867457101541376-93fHVRncPQxQxHH1igIfNy47a401Ww")
+                .setOAuthAccessTokenSecret("B5oZljI22OWu4qtyavf2SAyEXxHBZhYik33vSPx4DHOxf");
+        TwitterFactory tf = new TwitterFactory(cb.build());
+        Twitter twitter = tf.getInstance();
+        return twitter;
     }
 
     /**
@@ -84,9 +103,6 @@ public class App {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
-
-
-
     }
 
 
