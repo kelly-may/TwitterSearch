@@ -1,15 +1,18 @@
 package com.test.twitter;
 
+import com.google.common.base.Splitter;
+import com.google.common.collect.Iterables;
 import twitter4j.*;
-import twitter4j.auth.Authorization;
 import twitter4j.conf.ConfigurationBuilder;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.*;
 import java.util.ArrayList;
-import java.util.stream.Collectors;
+import java.util.Arrays;
+import java.util.LinkedHashMap;
 
 /**
  * Twitter Search Program
@@ -26,7 +29,11 @@ public class App {
     private JTextPane txtTitle;
     private JTextPane txtSubtitle;
     private JLabel lblBird;
+    private JTable tweetTable;
     private ArrayList<String> searchFields = new ArrayList<>();
+    private final int CELL_LENGTH = 40;
+    private ArrayList<StringBuilder> handleList = new ArrayList<>();
+    private ArrayList<StringBuilder> tweetList = new ArrayList<>();
 
     /**
      * App - holds listeners for the Enter button on search.
@@ -38,15 +45,16 @@ public class App {
                 //write code to show message
                 //JOptionPane.showMessageDialog(null, "Hello World!");
                 try {
-                    Twitter connection = connectTwitter(); //connect to twitter
-                    ArrayList<String> results = new ArrayList<>();
-                    results.addAll(searchTweets(connection, tfSearchBar));
+                    clearTweetLists(); //clear previous lists
+                    Twitter connection = setTwitterConnection(); //connect to twitter
+                    setTweetLists(connection, tfSearchBar);
+                    fillTable(handleList, tweetList);
 
-                    //need to figure out how to add results to Jlist and display in GUI
-                    for(int i = 0; i < results.size(); i++){
-                        listModel.addElement(results.get(i));
-                        list1.setVisible(true);
-                    }
+                    //System.out.print(setTweetMap(connection, tfSearchBar));
+
+                    //need to figure out how to add results to Jtable and display in GUI
+                    //tweetTable.addColumn(setTweetMap(connection, tfSearchBar));
+
                 } catch (TwitterException e) {
                     e.printStackTrace();
                 }
@@ -54,31 +62,106 @@ public class App {
         });
     }
 
+
     /**
-     * searchTweets - takes the twitter connection, and the input from tfSearchBar to fill a list with search results
+     * takes the twitter connection, and the input from tfSearchBar to fill a sorted HashMap with the username and tweet
      * @param twitter, tfSearchBar
      * @return
      * @throws TwitterException
      */
-    public static ArrayList<String> searchTweets(Twitter twitter, JTextField tfSearchBar) throws TwitterException{
+    /*
+    private static LinkedHashMap<String, String> setTweetMap(Twitter twitter, JTextField tfSearchBar) throws TwitterException{
 
-        ArrayList<String> tweetList = new ArrayList();
-        //TwitterFactory twitter = (TwitterFactory) new TwitterFactory().getInstance();
-        Query query = new Query(tfSearchBar.getText().toString());
+        LinkedHashMap<String,String> tweetList = new LinkedHashMap<>();
+        Query query = new Query(tfSearchBar.getText());
 
         QueryResult result = twitter.search(query);
 
-        tweetList.addAll(result.getTweets().stream().map(item-> item.getText()).collect(Collectors.toList()));
+        for(Status status : result.getTweets()){
+            //String tweetString = "@" + status.getUser().getScreenName() + " : " + status.getText();
+            tweetList.put("@" + status.getUser().getScreenName(), status.getText());
+        }
 
-        System.out.print(tweetList.toString());
         return tweetList;
     }
+     */
+
+
+    /**
+     * fills the arrayLists with the twitter handles and the tweets
+     * @param twitter
+     * @param tfSearchBar
+     * @throws TwitterException
+     */
+    private void setTweetLists(Twitter twitter, JTextField tfSearchBar) throws TwitterException{
+        Query query = new Query(tfSearchBar.getText());
+
+        QueryResult result = twitter.search(query);
+
+        for(Status status : result.getTweets()){
+            handleList.add(new StringBuilder("@" + status.getUser().getScreenName()));
+            tweetList.add(new StringBuilder(status.getText()));
+        }
+    }
+
+    /**
+     * clears the handles and tweets arraylists
+     */
+    private void clearTweetLists(){
+        handleList.clear();
+        tweetList.clear();
+    }
+
+    /**
+     * fills the table with the values from Linked HashMap to view in GUI
+     * @param handles, tweets
+     */
+    private void fillTable( ArrayList<StringBuilder> handles, ArrayList<StringBuilder> tweets){
+        DefaultTableModel model = new DefaultTableModel();
+        tweetTable.setModel(model);
+
+        model.addColumn("Twitter Handle");
+        model.addColumn("Tweet");
+
+        for(int i = 0; i < handles.size(); i++) {
+            //System.out.println(tweets.get(i));
+            // if length of tweet is greater than 100, create array, to split tweet into multiple lines
+            if (tweets.get(i).length() > CELL_LENGTH){
+                int splitTimes = tweets.get(i).length() / CELL_LENGTH;
+
+                String[] splitList =
+                        Iterables.toArray(Splitter.fixedLength(CELL_LENGTH).split(tweets.get(i)), String.class);
+
+                System.out.println(Arrays.toString(splitList));
+
+                model.addRow(new Object[] {handles.get(i), splitList});
+                tweetTable.setRowHeight(i, 30*splitTimes);
+            }
+            else {
+                model.addRow(new Object[]{handles.get(i), tweets.get(i)});
+            }
+            adjustTable();
+
+
+        }
+    }
+
+    /**
+     * https://stackoverflow.com/questions/9955595/how-to-display-multiple-lines-in-a-jtable-cell
+     * wrapping text in cells.
+     */
+    private void adjustTable(){
+        MultiLineCellRenderer renderer = new MultiLineCellRenderer();
+        //set TableCellRenderer into a specified JTable column
+        tweetTable.getColumnModel().getColumn(1).setCellRenderer(renderer);
+    }
+
 
     /**
      * connectTwitter - uses OAuth to connect and configure to Twitter
      * @return
      */
-    public Twitter connectTwitter(){
+    private Twitter setTwitterConnection(){
         ConfigurationBuilder cb = new ConfigurationBuilder();
         cb.setDebugEnabled(true)
                 .setOAuthConsumerKey("dtMTeDPWds1fTW1NYcGea9iBI")
@@ -90,14 +173,6 @@ public class App {
         return twitter;
     }
 
-    /**
-     * createList - method to fill the list1 values with top 5 tweets.
-     */
-    public void createList(){
-        searchFields.add("Testing This");
-        list1.setListData(searchFields.toArray());
-    }
-
     public static void main(String[] args) {
         //create JFrame
         JFrame frame = new JFrame("Twitter Tweet Finder");
@@ -106,6 +181,5 @@ public class App {
         frame.pack();
         frame.setVisible(true);
     }
-
 
 }

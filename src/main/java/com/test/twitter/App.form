@@ -11,9 +11,9 @@
       <focusCycleRoot value="false"/>
       <foreground color="-1380628"/>
       <inheritsPopupMenu value="false"/>
-      <maximumSize width="1566" height="600"/>
+      <maximumSize width="1566" height="1000"/>
       <opaque value="true"/>
-      <preferredSize width="1000" height="500"/>
+      <preferredSize width="1000" height="800"/>
       <requestFocusEnabled value="false"/>
     </properties>
     <border type="none"/>
@@ -96,29 +96,41 @@
       </component>
       <scrollpane id="d600c">
         <constraints>
-          <grid row="3" column="0" row-span="1" col-span="3" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <grid row="3" column="0" row-span="1" col-span="3" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <minimum-size width="50" height="-1"/>
+            <preferred-size width="1000" height="500"/>
+            <maximum-size width="2000" height="800"/>
+          </grid>
         </constraints>
-        <properties/>
-        <border type="none"/>
+        <properties>
+          <alignmentX value="1.0"/>
+          <alignmentY value="1.0"/>
+          <autoscrolls value="true"/>
+          <background color="-16732946"/>
+          <enabled value="false"/>
+          <font name="Century Gothic" style="0"/>
+          <foreground color="-16732946"/>
+        </properties>
+        <border type="bevel-lowered"/>
         <children>
-          <component id="8d9e6" class="javax.swing.JList" binding="list1" default-binding="true">
+          <component id="66d2f" class="javax.swing.JTable" binding="tweetTable">
             <constraints/>
             <properties>
-              <autoscrolls value="false"/>
-              <background color="-16732946"/>
-              <enabled value="true"/>
-              <foreground color="-262147"/>
+              <autoResizeMode value="4"/>
+              <enabled value="false"/>
+              <font name="Century Gothic" size="20" style="0"/>
+              <foreground color="-16382458"/>
+              <gridColor color="-16732946"/>
               <inheritsPopupMenu value="false"/>
-              <model/>
-              <name value="Results"/>
-              <nextFocusableComponent value="8d9e6"/>
-              <opaque value="true"/>
-              <selectionBackground color="-262147"/>
-              <selectionForeground color="-16382458"/>
-              <toolTipText value="test"/>
-              <valueIsAdjusting value="true"/>
-              <visible value="true"/>
-              <visibleRowCount value="5"/>
+              <intercellSpacing width="3" height="3"/>
+              <maximumSize width="1500" height="60"/>
+              <name value=""/>
+              <rowHeight value="30"/>
+              <rowMargin value="3"/>
+              <rowSelectionAllowed value="false"/>
+              <selectionBackground color="-16732946"/>
+              <selectionForeground color="-16732946"/>
+              <showHorizontalLines value="true"/>
             </properties>
           </component>
         </children>
