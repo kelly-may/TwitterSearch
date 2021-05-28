@@ -120,7 +120,7 @@ public class App {
             if (tweets.get(i).length() > CELL_LENGTH){
                 int splitTimes = tweets.get(i).length() / CELL_LENGTH;
 
-                model.addRow(new Object[] {handles.get(i), splitTheList(tweets.get(i))});
+                model.addRow(new Object[] {handles.get(i), splitTheTweet(tweets.get(i))});
                 tweetTable.setRowHeight(i, 30*(splitTimes+1)); //adjust row height to account for more lines
             }
             else {
@@ -133,11 +133,11 @@ public class App {
     }
 
     /**
-     * splits a list into equal parts for hard-wrapping text in table cells
+     * splits a tweet stringbuilder into equal parts for hard-wrapping text in table cells
      * @param tweet stringbuilder to split
      * @return returns array
      */
-    private String[] splitTheList(StringBuilder tweet){
+    private String[] splitTheTweet(StringBuilder tweet){
 
         return Iterables.toArray(Splitter.fixedLength(CELL_LENGTH).split(tweet), String.class);
     }
