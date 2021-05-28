@@ -206,6 +206,7 @@
             </constraints>
             <properties>
               <background color="-16732946"/>
+              <editable value="false"/>
               <font name="Century Gothic" size="48" style="0"/>
               <foreground color="-262147"/>
               <selectedTextColor color="-262147"/>

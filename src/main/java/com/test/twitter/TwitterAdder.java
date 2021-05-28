@@ -48,9 +48,6 @@ public class TwitterAdder {
             tweetList.add(new StringBuilder(status.getText()));
         }
 
-        for (int i = 0; i < handleList.size(); i++) {
-            System.out.println(handleList.get(i) + "------>" + tweetList.get(i));
-        }
     }
 
     public ArrayList<StringBuilder> getHandleList(){
@@ -75,8 +72,6 @@ public class TwitterAdder {
      * @return true or false
      */
     protected boolean listsEmpty(){
-        System.out.println(handleList.size());
-        System.out.println(tweetList.size());
         return handleList.isEmpty() && tweetList.isEmpty();
     }
 

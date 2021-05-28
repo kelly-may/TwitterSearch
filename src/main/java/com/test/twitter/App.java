@@ -6,8 +6,8 @@ import twitter4j.*;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 /**
@@ -21,7 +21,7 @@ public class App {
     private JButton btnEnter;
     private JPanel panelMain;
     private JTextField tfSearchBar;
-    private final DefaultListModel listModel = new DefaultListModel();
+
     private JTextPane txtTitle;
     private JTextPane trendingTextPane;
     private JLabel lblBird;
@@ -30,7 +30,7 @@ public class App {
     private JButton btnRefresh;
     private JLabel lblBird2;
     private JTextPane txtSubtitle;
-    private final int CELL_LENGTH = 70;
+    private final int CELL_LENGTH = 45;
     TrendAdder trendAdder = new TrendAdder();
     TwitterAdder twitterAdder = new TwitterAdder();
 
@@ -38,18 +38,34 @@ public class App {
      * App - holds listeners for GUI
      */
     public App() throws TwitterException {
+        tfSearchBar.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                tfSearchBar.setText("");
+            }
+        });
+
         //search tweets
         btnEnter.addActionListener(actionEvent -> {
             try {
                 twitterAdder.clearTweetLists(); //clear previous lists
                 StringBuilder searchQuery = new StringBuilder(tfSearchBar.getText());
-                twitterAdder.setTweetLists(searchQuery);
-                fillTweetsTable(twitterAdder.getHandleList(), twitterAdder.getTweetList());
+                if (!tfSearchBar.getText().equals("")) {
+                    twitterAdder.setTweetLists(searchQuery);
+                    fillTweetsTable(twitterAdder.getHandleList(), twitterAdder.getTweetList());
+                }
 
             } catch (TwitterException e) {
                 e.printStackTrace();
             }
         });
+
+        btnRefresh.addActionListener(actionEvent ->{
+            twitterAdder.clearTweetLists();
+            fillTweetsTable(twitterAdder.getHandleList(), twitterAdder.getTweetList());
+            fillTrendTable();
+        });
+
          fillTrendTable();
     }
 
@@ -59,26 +75,25 @@ public class App {
      * @param handles, tweets
      */
     private void fillTweetsTable(ArrayList<StringBuilder> handles, ArrayList<StringBuilder> tweets){
-        DefaultTableModel model = new DefaultTableModel();
-        tweetTable.setModel(model);
+        DefaultTableModel tableModel = new DefaultTableModel();
+        tweetTable.setModel(tableModel);
 
-        model.addColumn("Twitter Handle");
-        model.addColumn("Tweet");
+        tableModel.addColumn("Twitter Handle");
+        tableModel.addColumn("Tweet");
 
         if(twitterAdder.listsEmpty()){
-            model.addRow(new Object[] {"No Result", "No Result"});
-            System.out.println("no result");
+            tableModel.addRow(new Object[] {"No Result", "No Result"});
         }
 
         for(int i = 0; i < handles.size(); i++) {
              // if length of tweet is too long, split the tweet so it can be wrapped in a multiline cell.
           if (tweets.get(i).length() > CELL_LENGTH){
                 int splitTimes = tweets.get(i).length() / CELL_LENGTH;
-                model.addRow(new Object[] {handles.get(i), splitTheTweet(tweets.get(i))});
+                tableModel.addRow(new Object[] {handles.get(i), splitTheTweet(tweets.get(i))});
                 tweetTable.setRowHeight(i, 30*(splitTimes+1)); //adjust row height to account for more lines
             }
             else {
-                model.addRow(new Object[]{handles.get(i), tweets.get(i)});
+                tableModel.addRow(new Object[]{handles.get(i), tweets.get(i)});
             }
         }
         wrapCellText();
@@ -90,6 +105,7 @@ public class App {
      * @throws TwitterException for twitter4j object
      */
     private void fillTrendTable() {
+        DefaultListModel listModel = new DefaultListModel();
         trendingList.setModel(listModel);
         for (StringBuilder tweetTrend : trendAdder.getTweetTrends()) {
             listModel.addElement(tweetTrend);
