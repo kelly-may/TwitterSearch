@@ -25,73 +25,51 @@ public class App {
     private JPanel panelMain;
     private JTextField tfSearchBar;
     private DefaultListModel listModel = new DefaultListModel();
-    private JList list1 = new JList(listModel);
     private JTextPane txtTitle;
     private JTextPane txtSubtitle;
     private JLabel lblBird;
     private JTable tweetTable;
+    private JList trendingList;
+    private JTextPane trendingTextPane;
     private ArrayList<String> searchFields = new ArrayList<>();
-    private final int CELL_LENGTH = 40;
+    private final int CELL_LENGTH = 70;
     private ArrayList<StringBuilder> handleList = new ArrayList<>();
     private ArrayList<StringBuilder> tweetList = new ArrayList<>();
 
     /**
      * App - holds listeners for the Enter button on search.
      */
-    public App() {
+    public App() throws TwitterException {
+
         btnEnter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                //write code to show message
-                //JOptionPane.showMessageDialog(null, "Hello World!");
                 try {
                     clearTweetLists(); //clear previous lists
                     Twitter connection = setTwitterConnection(); //connect to twitter
                     setTweetLists(connection, tfSearchBar);
                     fillTable(handleList, tweetList);
 
-                    //System.out.print(setTweetMap(connection, tfSearchBar));
-
-                    //need to figure out how to add results to Jtable and display in GUI
-                    //tweetTable.addColumn(setTweetMap(connection, tfSearchBar));
-
                 } catch (TwitterException e) {
                     e.printStackTrace();
                 }
             }
         });
-    }
 
-
-    /**
-     * takes the twitter connection, and the input from tfSearchBar to fill a sorted HashMap with the username and tweet
-     * @param twitter, tfSearchBar
-     * @return
-     * @throws TwitterException
-     */
-    /*
-    private static LinkedHashMap<String, String> setTweetMap(Twitter twitter, JTextField tfSearchBar) throws TwitterException{
-
-        LinkedHashMap<String,String> tweetList = new LinkedHashMap<>();
-        Query query = new Query(tfSearchBar.getText());
-
-        QueryResult result = twitter.search(query);
-
-        for(Status status : result.getTweets()){
-            //String tweetString = "@" + status.getUser().getScreenName() + " : " + status.getText();
-            tweetList.put("@" + status.getUser().getScreenName(), status.getText());
+            // add trends to Jlist
+            trendingList.setModel(listModel);
+            ArrayList<String> tweetTrends = setTweetTrends(setTwitterConnection());
+        for (String tweetTrend : tweetTrends) {
+            listModel.addElement(tweetTrend);
         }
 
-        return tweetList;
     }
-     */
-
 
     /**
      * fills the arrayLists with the twitter handles and the tweets
-     * @param twitter
-     * @param tfSearchBar
-     * @throws TwitterException
+     * @param twitter for connection
+     * @param tfSearchBar for pulling string for query
+     * @throws TwitterException for twitter4j
      */
     private void setTweetLists(Twitter twitter, JTextField tfSearchBar) throws TwitterException{
         Query query = new Query(tfSearchBar.getText());
@@ -102,6 +80,22 @@ public class App {
             handleList.add(new StringBuilder("@" + status.getUser().getScreenName()));
             tweetList.add(new StringBuilder(status.getText()));
         }
+    }
+
+    /**
+     * make a list of trending topics in New York
+     * @param twitter for  connection
+     * @throws TwitterException for twitter4j
+     */
+    private ArrayList<String> setTweetTrends(Twitter twitter) throws TwitterException{
+        ArrayList<String> trends = new ArrayList<>();
+        int newYorkWOEID= 2459115;
+
+        Trends dailyTrends = twitter.getPlaceTrends(newYorkWOEID);
+        for(int i = 0; i < dailyTrends.getTrends().length; i++){
+            trends.add(dailyTrends.getTrends()[i].getName());
+        }
+        return trends;
     }
 
     /**
@@ -135,7 +129,7 @@ public class App {
                 System.out.println(Arrays.toString(splitList));
 
                 model.addRow(new Object[] {handles.get(i), splitList});
-                tweetTable.setRowHeight(i, 30*splitTimes);
+                tweetTable.setRowHeight(i, 30*(splitTimes+1));
             }
             else {
                 model.addRow(new Object[]{handles.get(i), tweets.get(i)});
@@ -159,7 +153,7 @@ public class App {
 
     /**
      * connectTwitter - uses OAuth to connect and configure to Twitter
-     * @return
+     * @return twitter connection
      */
     private Twitter setTwitterConnection(){
         ConfigurationBuilder cb = new ConfigurationBuilder();
@@ -169,11 +163,10 @@ public class App {
                 .setOAuthAccessToken("1396867457101541376-93fHVRncPQxQxHH1igIfNy47a401Ww")
                 .setOAuthAccessTokenSecret("B5oZljI22OWu4qtyavf2SAyEXxHBZhYik33vSPx4DHOxf");
         TwitterFactory tf = new TwitterFactory(cb.build());
-        Twitter twitter = tf.getInstance();
-        return twitter;
+        return tf.getInstance();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws TwitterException {
         //create JFrame
         JFrame frame = new JFrame("Twitter Tweet Finder");
         frame.setContentPane(new App().panelMain);
