@@ -1,5 +1,10 @@
 package com.test.twitter;
 
+import com.google.common.base.Splitter;
+import com.google.common.collect.Iterables;
+import twitter4j.*;
+import twitter4j.conf.ConfigurationBuilder;
+
 import javax.swing.*;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
@@ -20,4 +25,5 @@ public class MultiLineCellRenderer extends JList<String> implements TableCellRen
         setFont(UIManager.getFont("Century Gothic"));
         return this;
     }
+
 }
