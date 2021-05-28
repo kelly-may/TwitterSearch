@@ -12,7 +12,8 @@ import java.util.ArrayList;
 
 /**
  * Twitter Search Program
- * Description - Java Swing application that searches Twitter for a user's query and displays the results.
+ * Description - Java Swing application that searches Twitter for a user's query
+ * and displays the results.
  * Author - Kelly May
  * Date Created - 5/24/2021
  */
@@ -22,11 +23,13 @@ public class App {
     private JTextField tfSearchBar;
     private final DefaultListModel listModel = new DefaultListModel();
     private JTextPane txtTitle;
-    private JTextPane txtSubtitle;
     private JTextPane trendingTextPane;
     private JLabel lblBird;
     private JTable tweetTable;
     private JList trendingList;
+    private JButton btnRefresh;
+    private JLabel lblBird2;
+    private JTextPane txtSubtitle;
     private final int CELL_LENGTH = 70;
     TrendAdder trendAdder = new TrendAdder();
     TwitterAdder twitterAdder = new TwitterAdder();
@@ -86,10 +89,9 @@ public class App {
      * fills the Jlist with values from trends to view in GUI
      * @throws TwitterException for twitter4j object
      */
-    private void fillTrendTable() throws TwitterException {
+    private void fillTrendTable() {
         trendingList.setModel(listModel);
-        ArrayList<String> tweetTrends = trendAdder.setTweetTrends();
-        for (String tweetTrend : tweetTrends) {
+        for (StringBuilder tweetTrend : trendAdder.getTweetTrends()) {
             listModel.addElement(tweetTrend);
         }
     }
