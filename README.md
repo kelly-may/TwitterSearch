@@ -11,3 +11,6 @@
 3. Maven - handling dependencies
 4. Twitter4J - Twitter API
 
+## How to Run:
+1. clone repository
+2. 
