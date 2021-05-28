@@ -13,4 +13,5 @@
 
 ## How to Run:
 1. clone repository
-2. 
+2. go to out > artifacts > twitterSearch_jar
+3. click the JAR file to start program

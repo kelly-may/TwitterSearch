@@ -61,8 +61,12 @@ public class App {
         });
 
         btnRefresh.addActionListener(actionEvent ->{
-            twitterAdder.clearTweetLists();
             fillTweetsTable(twitterAdder.getHandleList(), twitterAdder.getTweetList());
+            try {
+                trendAdder.setTweetTrends();
+            } catch (TwitterException e) {
+                e.printStackTrace();
+            }
             fillTrendTable();
         });
 

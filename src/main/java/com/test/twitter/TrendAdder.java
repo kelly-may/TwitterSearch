@@ -19,6 +19,7 @@ public class TrendAdder extends TwitterAdder {
      */
     protected void setTweetTrends() throws TwitterException {
         int newYorkWOEID = 2459115;
+        tweetTrends.clear();
 
         Trends dailyTrends = super.connection.getPlaceTrends(newYorkWOEID);
         for (int i = 0; i < dailyTrends.getTrends().length; i++) {
