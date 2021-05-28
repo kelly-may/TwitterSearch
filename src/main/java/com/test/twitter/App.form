@@ -78,7 +78,7 @@
           <contentType value="text/plain"/>
           <editable value="false"/>
           <enabled value="true"/>
-          <font name="Dubai Medium" size="72" style="1"/>
+          <font name="Century Gothic" size="86" style="1"/>
           <foreground color="-1"/>
           <opaque value="true"/>
           <text value="Tweet Finder" noi18n="true"/>
@@ -98,7 +98,7 @@
         <constraints>
           <grid row="4" column="0" row-span="1" col-span="3" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
             <minimum-size width="50" height="-1"/>
-            <preferred-size width="1000" height="500"/>
+            <preferred-size width="400" height="500"/>
             <maximum-size width="2000" height="800"/>
           </grid>
         </constraints>
@@ -123,7 +123,7 @@
               <gridColor color="-16732946"/>
               <inheritsPopupMenu value="false"/>
               <intercellSpacing width="3" height="3"/>
-              <maximumSize width="1500" height="60"/>
+              <maximumSize width="800" height="60"/>
               <name value=""/>
               <rowHeight value="30"/>
               <rowMargin value="3"/>
@@ -149,7 +149,7 @@
             <constraints/>
             <properties>
               <autoscrolls value="true"/>
-              <font name="Century Gothic" size="22" style="1"/>
+              <font name="Century Gothic" size="28" style="1"/>
               <foreground color="-16732946"/>
               <layoutOrientation value="0"/>
               <name value="Trending:"/>

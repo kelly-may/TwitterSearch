@@ -7,12 +7,10 @@ import twitter4j.conf.ConfigurationBuilder;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedHashMap;
 
 /**
  * Twitter Search Program
@@ -118,33 +116,38 @@ public class App {
         model.addColumn("Tweet");
 
         for(int i = 0; i < handles.size(); i++) {
-            //System.out.println(tweets.get(i));
-            // if length of tweet is greater than 100, create array, to split tweet into multiple lines
+            // if length of tweet is too long, split the tweet so it can be wrapped in a multiline cell.
             if (tweets.get(i).length() > CELL_LENGTH){
                 int splitTimes = tweets.get(i).length() / CELL_LENGTH;
 
-                String[] splitList =
-                        Iterables.toArray(Splitter.fixedLength(CELL_LENGTH).split(tweets.get(i)), String.class);
-
-                System.out.println(Arrays.toString(splitList));
-
-                model.addRow(new Object[] {handles.get(i), splitList});
-                tweetTable.setRowHeight(i, 30*(splitTimes+1));
+                model.addRow(new Object[] {handles.get(i), splitTheList(tweets.get(i))});
+                tweetTable.setRowHeight(i, 30*(splitTimes+1)); //adjust row height to account for more lines
             }
             else {
                 model.addRow(new Object[]{handles.get(i), tweets.get(i)});
             }
-            adjustTable();
+            wrapCellText();
 
 
         }
     }
 
     /**
+     * splits a list into equal parts for hard-wrapping text in table cells
+     * @param tweet stringbuilder to split
+     * @return returns array
+     */
+    private String[] splitTheList(StringBuilder tweet){
+
+        return Iterables.toArray(Splitter.fixedLength(CELL_LENGTH).split(tweet), String.class);
+    }
+
+    /**
      * https://stackoverflow.com/questions/9955595/how-to-display-multiple-lines-in-a-jtable-cell
      * wrapping text in cells.
      */
-    private void adjustTable(){
+    private void wrapCellText(){
+
         MultiLineCellRenderer renderer = new MultiLineCellRenderer();
         //set TableCellRenderer into a specified JTable column
         tweetTable.getColumnModel().getColumn(1).setCellRenderer(renderer);
@@ -152,7 +155,7 @@ public class App {
 
 
     /**
-     * connectTwitter - uses OAuth to connect and configure to Twitter
+     * connect Twitter - uses OAuth to connect and configure to Twitter
      * @return twitter connection
      */
     private Twitter setTwitterConnection(){
