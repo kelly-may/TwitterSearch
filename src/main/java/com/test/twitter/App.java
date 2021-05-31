@@ -21,7 +21,6 @@ public class App {
     private JButton btnEnter;
     private JPanel panelMain;
     private JTextField tfSearchBar;
-
     private JTextPane txtTitle;
     private JTextPane trendingTextPane;
     private JLabel lblBird;
