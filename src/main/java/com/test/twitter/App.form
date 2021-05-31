@@ -14,7 +14,7 @@
     </properties>
     <border type="none"/>
     <children>
-      <grid id="27dc6" binding="panelMain" layout-manager="GridLayoutManager" row-count="5" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="0" vgap="0">
+      <grid id="27dc6" binding="panelMain" layout-manager="GridLayoutManager" row-count="4" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="0" vgap="0">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints/>
         <properties>
@@ -34,7 +34,7 @@
         <children>
           <component id="f684c" class="javax.swing.JTextField" binding="tfSearchBar">
             <constraints>
-              <grid row="3" column="0" row-span="1" col-span="2" vsize-policy="4" hsize-policy="6" anchor="0" fill="0" indent="5" use-parent-layout="false">
+              <grid row="2" column="0" row-span="1" col-span="2" vsize-policy="4" hsize-policy="6" anchor="0" fill="0" indent="5" use-parent-layout="false">
                 <preferred-size width="800" height="40"/>
               </grid>
             </constraints>
@@ -47,21 +47,10 @@
               <text value="Enter your search here" noi18n="true"/>
             </properties>
           </component>
-          <component id="2f82d" class="javax.swing.JLabel" binding="lblBird">
-            <constraints>
-              <grid row="0" column="0" row-span="2" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <icon value="bird.JPG"/>
-              <opaque value="true"/>
-              <text value=""/>
-            </properties>
-          </component>
           <scrollpane id="d600c">
             <constraints>
-              <grid row="4" column="0" row-span="1" col-span="3" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="3" use-parent-layout="false">
+              <grid row="3" column="0" row-span="1" col-span="3" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="1" use-parent-layout="false">
                 <preferred-size width="400" height="500"/>
-                <maximum-size width="1000" height="800"/>
               </grid>
             </constraints>
             <properties>
@@ -100,8 +89,8 @@
           </scrollpane>
           <component id="17082" class="javax.swing.JButton" binding="btnEnter">
             <constraints>
-              <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="1" use-parent-layout="false">
-                <minimum-size width="100" height="20"/>
+              <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="1" use-parent-layout="false">
+                <preferred-size width="200" height="20"/>
               </grid>
             </constraints>
             <properties>
@@ -115,8 +104,8 @@
           </component>
           <scrollpane id="8cf4b">
             <constraints>
-              <grid row="4" column="3" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="2" use-parent-layout="false">
-                <maximum-size width="400" height="1200"/>
+              <grid row="3" column="3" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="2" use-parent-layout="false">
+                <preferred-size width="400" height="600"/>
               </grid>
             </constraints>
             <properties>
@@ -144,7 +133,7 @@
           </scrollpane>
           <component id="bb3b0" class="javax.swing.JTextPane" binding="txtTitle">
             <constraints>
-              <grid row="1" column="1" row-span="1" col-span="2" vsize-policy="6" hsize-policy="6" anchor="2" fill="0" indent="0" use-parent-layout="false">
+              <grid row="0" column="1" row-span="1" col-span="2" vsize-policy="6" hsize-policy="6" anchor="0" fill="0" indent="0" use-parent-layout="false">
                 <preferred-size width="600" height="100"/>
               </grid>
             </constraints>
@@ -163,7 +152,7 @@
           </component>
           <component id="daffd" class="javax.swing.JTextPane" binding="trendingTextPane" default-binding="true">
             <constraints>
-              <grid row="3" column="3" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="0" indent="6" use-parent-layout="false">
+              <grid row="2" column="3" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="0" indent="6" use-parent-layout="false">
                 <preferred-size width="200" height="20"/>
               </grid>
             </constraints>
@@ -180,7 +169,7 @@
           </component>
           <component id="9da21" class="javax.swing.JButton" binding="btnRefresh">
             <constraints>
-              <grid row="2" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <background color="-262147"/>
@@ -198,7 +187,7 @@
           </component>
           <component id="76719" class="javax.swing.JLabel" binding="lblBird2">
             <constraints>
-              <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <icon value="bird.JPG"/>
@@ -206,20 +195,14 @@
               <text value=""/>
             </properties>
           </component>
-          <component id="badf2" class="javax.swing.JTextPane" binding="txtSubtitle">
+          <component id="2f82d" class="javax.swing.JLabel" binding="lblBird">
             <constraints>
-              <grid row="2" column="1" row-span="1" col-span="2" vsize-policy="6" hsize-policy="6" anchor="0" fill="1" indent="5" use-parent-layout="false">
-                <preferred-size width="150" height="50"/>
-              </grid>
+              <grid row="0" column="0" row-span="2" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <background color="-16732946"/>
-              <editable value="false"/>
-              <font name="Century Gothic" size="48" style="0"/>
-              <foreground color="-262147"/>
-              <selectedTextColor color="-262147"/>
-              <selectionColor color="-16732946"/>
-              <text value="Find the Tweet, It's pretty Neat! "/>
+              <icon value="bird.JPG"/>
+              <opaque value="true"/>
+              <text value=""/>
             </properties>
           </component>
         </children>

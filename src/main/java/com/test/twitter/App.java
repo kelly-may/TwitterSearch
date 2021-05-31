@@ -29,7 +29,6 @@ public class App {
     private JList trendingList;
     private JButton btnRefresh;
     private JLabel lblBird2;
-    private JTextPane txtSubtitle;
     private final int CELL_LENGTH = 45;
     TrendAdder trendAdder = new TrendAdder();
     TwitterAdder twitterAdder = new TwitterAdder();
