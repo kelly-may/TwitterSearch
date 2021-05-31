@@ -4,7 +4,13 @@
     <constraints>
       <xy x="26" y="24" width="1575" height="680"/>
     </constraints>
-    <properties/>
+    <properties>
+      <autoscrolls value="true"/>
+      <focusable value="true"/>
+      <horizontalScrollBarPolicy value="32"/>
+      <maximumSize width="1000" height="10000"/>
+      <verticalScrollBarPolicy value="22"/>
+    </properties>
     <border type="none"/>
     <children>
       <grid id="27dc6" binding="panelMain" layout-manager="GridLayoutManager" row-count="5" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="0" vgap="0">
@@ -14,10 +20,11 @@
           <autoscrolls value="true"/>
           <background color="-16732946"/>
           <doubleBuffered value="true"/>
-          <focusCycleRoot value="false"/>
+          <focusCycleRoot value="true"/>
           <foreground color="-16732946"/>
           <inheritsPopupMenu value="false"/>
-          <maximumSize width="2500" height="1000"/>
+          <maximumSize width="2000" height="1000"/>
+          <minimumSize width="600" height="300"/>
           <opaque value="true"/>
           <preferredSize width="1500" height="1000"/>
           <requestFocusEnabled value="false"/>
@@ -52,7 +59,7 @@
           </component>
           <scrollpane id="d600c">
             <constraints>
-              <grid row="4" column="0" row-span="1" col-span="3" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="5" use-parent-layout="false">
+              <grid row="4" column="0" row-span="1" col-span="3" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="3" use-parent-layout="false">
                 <minimum-size width="50" height="-1"/>
                 <preferred-size width="400" height="500"/>
                 <maximum-size width="2000" height="800"/>
@@ -109,7 +116,7 @@
           </component>
           <scrollpane id="8cf4b">
             <constraints>
-              <grid row="4" column="3" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="1" use-parent-layout="false">
+              <grid row="4" column="3" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="2" use-parent-layout="false">
                 <maximum-size width="400" height="1200"/>
               </grid>
             </constraints>

@@ -33,6 +33,8 @@ public class App {
     private final int CELL_LENGTH = 45;
     TrendAdder trendAdder = new TrendAdder();
     TwitterAdder twitterAdder = new TwitterAdder();
+    Messages messages = new Messages();
+    boolean refreshClicked = false;
 
     /**
      * App - holds listeners for GUI
@@ -47,25 +49,33 @@ public class App {
 
         //search tweets
         btnEnter.addActionListener(actionEvent -> {
-            try {
-                twitterAdder.clearTweetLists(); //clear previous lists
-                StringBuilder searchQuery = new StringBuilder(tfSearchBar.getText());
-                if (!tfSearchBar.getText().equals("")) {
+            twitterAdder.clearTweetLists(); //clear previous lists
+            refreshClicked = false;
+            StringBuilder searchQuery = new StringBuilder(tfSearchBar.getText());
+            if (tfSearchBar.getText().isEmpty()) {
+                messages.noSearchQuery();
+            }
+            else{
+                try {
                     twitterAdder.setTweetLists(searchQuery);
                     fillTweetsTable(twitterAdder.getHandleList(), twitterAdder.getTweetList());
+                } catch (TwitterException e) {
+                    e.printStackTrace();
+                    messages.genericIssue();
                 }
 
-            } catch (TwitterException e) {
-                e.printStackTrace();
             }
         });
 
         btnRefresh.addActionListener(actionEvent ->{
             fillTweetsTable(twitterAdder.getHandleList(), twitterAdder.getTweetList());
             try {
+                refreshClicked = true;
                 trendAdder.setTweetTrends();
+                refreshClicked = false;
             } catch (TwitterException e) {
                 e.printStackTrace();
+                messages.genericIssue();
             }
             fillTrendTable();
         });
@@ -85,22 +95,25 @@ public class App {
         tableModel.addColumn("Twitter Handle");
         tableModel.addColumn("Tweet");
 
-        if(twitterAdder.listsEmpty()){
-            tableModel.addRow(new Object[] {"No Result", "No Result"});
-        }
+        try {
+            if (twitterAdder.listsEmpty() && refreshClicked) {
+                messages.noResult();
+            }
 
-        for(int i = 0; i < handles.size(); i++) {
-             // if length of tweet is too long, split the tweet so it can be wrapped in a multiline cell.
-          if (tweets.get(i).length() > CELL_LENGTH){
-                int splitTimes = tweets.get(i).length() / CELL_LENGTH;
-                tableModel.addRow(new Object[] {handles.get(i), splitTheTweet(tweets.get(i))});
-                tweetTable.setRowHeight(i, 30*(splitTimes+1)); //adjust row height to account for more lines
+            for (int i = 0; i < handles.size(); i++) {
+                // if length of tweet is too long, split the tweet so it can be wrapped in a multiline cell.
+                if (tweets.get(i).length() > CELL_LENGTH) {
+                    int splitTimes = tweets.get(i).length() / CELL_LENGTH;
+                    tableModel.addRow(new Object[]{handles.get(i), splitTheTweet(tweets.get(i))});
+                    tweetTable.setRowHeight(i, 30 * (splitTimes + 1)); //adjust row height to account for more lines
+                } else {
+                    tableModel.addRow(new Object[]{handles.get(i), tweets.get(i)});
+                }
             }
-            else {
-                tableModel.addRow(new Object[]{handles.get(i), tweets.get(i)});
-            }
+            wrapCellText();
+        } catch(Exception ex){
+            messages.genericIssue();
         }
-        wrapCellText();
     }
 
 

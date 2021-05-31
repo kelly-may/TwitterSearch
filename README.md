@@ -10,8 +10,11 @@
 2. Swing UI Designer - built into IntelliJ IDEA
 3. Maven - handling dependencies
 4. Twitter4J - Twitter API
+5. Java 11 JDK
 
 ## How to Run:
 1. clone repository
 2. go to out > artifacts > twitterSearch_jar
 3. click the JAR file to start program
+
+note: The program was written on a desktop with a large monitor. 
