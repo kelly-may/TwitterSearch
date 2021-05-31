@@ -5,15 +5,17 @@ import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import java.util.ArrayList;
 
+/**
+ * class for adding trends from twitter4j
+ */
 public class TrendAdder extends TwitterAdder {
-
     private ArrayList<StringBuilder> tweetTrends = new ArrayList<>();
-    public TrendAdder() throws TwitterException {
-        setTweetTrends();
-    }
+
+    public TrendAdder() throws TwitterException { setTweetTrends(); }
+
 
     /**
-     * make a list of trending topics in New York
+     * make a list of trending topics in New York (for USA trends)
      *
      * @throws TwitterException for twitter4j
      */
@@ -27,9 +29,11 @@ public class TrendAdder extends TwitterAdder {
         }
     }
 
+
     protected ArrayList<StringBuilder> getTweetTrends(){
         return tweetTrends;
     }
+
 
     protected void clearTrends(){
         tweetTrends.clear();

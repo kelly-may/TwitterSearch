@@ -36,9 +36,6 @@ public class App {
     Messages messages = new Messages();
     boolean refreshClicked = false;
 
-    /**
-     * App - holds listeners for GUI
-     */
     public App() throws TwitterException {
         tfSearchBar.addMouseListener(new MouseAdapter() {
             @Override
@@ -68,9 +65,11 @@ public class App {
         });
 
         btnRefresh.addActionListener(actionEvent ->{
+            twitterAdder.clearTweetLists();
             fillTweetsTable(twitterAdder.getHandleList(), twitterAdder.getTweetList());
             try {
                 refreshClicked = true;
+                trendAdder.clearTrends();
                 trendAdder.setTweetTrends();
                 refreshClicked = false;
             } catch (TwitterException e) {
@@ -84,10 +83,6 @@ public class App {
     }
 
 
-    /**
-     * fills the table with the values from arrays to view in GUI
-     * @param handles, tweets
-     */
     private void fillTweetsTable(ArrayList<StringBuilder> handles, ArrayList<StringBuilder> tweets){
         DefaultTableModel tableModel = new DefaultTableModel();
         tweetTable.setModel(tableModel);
@@ -117,10 +112,6 @@ public class App {
     }
 
 
-    /**
-     * fills the Jlist with values from trends to view in GUI
-     * @throws TwitterException for twitter4j object
-     */
     private void fillTrendTable() {
         DefaultListModel listModel = new DefaultListModel();
         trendingList.setModel(listModel);
@@ -129,15 +120,12 @@ public class App {
         }
     }
 
-    /**
-     * splits a tweet stringbuilder into equal parts for hard-wrapping text in table cells
-     *
-     * @param tweet stringbuilder to split
-     * @return returns array
-     */
+
+   // splitting the tweet into equal parts for hard-wrapping longer messages
     protected String[] splitTheTweet(StringBuilder tweet) {
         return Iterables.toArray(Splitter.fixedLength(CELL_LENGTH).split(tweet), String.class);
     }
+
 
     /**
      * https://stackoverflow.com/questions/9955595/how-to-display-multiple-lines-in-a-jtable-cell
@@ -150,7 +138,6 @@ public class App {
 
 
     public static void main(String[] args) throws TwitterException {
-        //create JFrame
         JFrame frame = new JFrame("Twitter Tweet Finder");
         frame.setContentPane(new App().panelMain);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

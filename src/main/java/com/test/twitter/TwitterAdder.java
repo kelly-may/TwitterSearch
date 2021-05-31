@@ -7,6 +7,9 @@ import twitter4j.conf.ConfigurationBuilder;
 
 import java.util.ArrayList;
 
+/**
+ * class for handling the twitter4j actions related to searching a query and finding tweets
+ */
 public class TwitterAdder {
     Twitter connection;
     private ArrayList<StringBuilder> handleList = new ArrayList<>();
@@ -16,11 +19,7 @@ public class TwitterAdder {
         connection = setTwitterConnection();
     }
 
-    /**
-     * connect Twitter - uses OAuth to connect and configure to Twitter
-     *
-     * @return twitter connection
-     */
+
     private Twitter setTwitterConnection() {
         ConfigurationBuilder cb = new ConfigurationBuilder();
         cb.setDebugEnabled(true)
@@ -32,12 +31,7 @@ public class TwitterAdder {
         return tf.getInstance();
     }
 
-    /**
-     * fills the arrayLists with the twitter handles and the tweets
-     *
-     * @param userEntry - what is entered in the search bar
-     * @throws TwitterException for twitter4j
-     */
+
     protected void setTweetLists(StringBuilder userEntry) throws TwitterException {
         Query query = new Query(userEntry.toString());
 
@@ -54,23 +48,18 @@ public class TwitterAdder {
         return handleList;
     }
 
+
     public ArrayList<StringBuilder> getTweetList(){
         return tweetList;
     }
 
 
-    /**
-     * clears the handles and tweets arraylists
-     */
     protected void clearTweetLists() {
         handleList.clear();
         tweetList.clear();
     }
 
-    /**
-     * checking if lists are empty
-     * @return true or false
-     */
+
     protected boolean listsEmpty(){
         return handleList.isEmpty() && tweetList.isEmpty();
     }

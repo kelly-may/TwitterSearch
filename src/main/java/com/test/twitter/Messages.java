@@ -2,6 +2,9 @@ package com.test.twitter;
 
 import javax.swing.*;
 
+/**
+ * class to hold any pop-up messages/warnings for the application
+ */
 public class Messages {
 
     public void noSearchQuery(){
@@ -10,11 +13,13 @@ public class Messages {
                 JOptionPane.WARNING_MESSAGE);
     }
 
+
     public void noResult(){
         JFrame frame = new JFrame();
         JOptionPane.showMessageDialog(frame, "No result.",  "Warning",
                 JOptionPane.WARNING_MESSAGE);
     }
+
 
     public void genericIssue(){
         JFrame frame = new JFrame();
