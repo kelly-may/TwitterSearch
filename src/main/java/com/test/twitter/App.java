@@ -64,12 +64,12 @@ public class App {
 
         btnRefresh.addActionListener(actionEvent ->{
             twitterAdder.clearTweetLists();
-            fillTweetsTable(twitterAdder.getHandleList(), twitterAdder.getTweetList());
             try {
                 refreshClicked = true;
+                fillTweetsTable(twitterAdder.getHandleList(), twitterAdder.getTweetList());
                 trendAdder.clearTrends();
                 trendAdder.setTweetTrends();
-                refreshClicked = false;
+                tfSearchBar.setText("");
             } catch (TwitterException e) {
                 e.printStackTrace();
                 messages.genericIssue();
@@ -89,7 +89,7 @@ public class App {
         tableModel.addColumn("Tweet");
 
         try {
-            if (twitterAdder.listsEmpty() && refreshClicked) {
+            if (twitterAdder.listsEmpty() && !refreshClicked) {
                 messages.noResult();
             }
 
