@@ -136,7 +136,6 @@ public class App {
                 lastIndex += breakString.length();
             }
         }
-        System.out.println(count);
         return count * 40 +5; //accounting for spacing of character size
     }
 
