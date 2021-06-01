@@ -1,8 +1,7 @@
 package com.test.twitter;
 
-import com.google.common.base.Splitter;
-import com.google.common.collect.Iterables;
-import twitter4j.*;
+import org.davidmoten.text.utils.WordWrap;
+import twitter4j.TwitterException;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -97,18 +96,17 @@ public class App {
                 // if length of tweet is too long, split the tweet so it can be wrapped in a multiline cell.
                 if (tweets.get(i).length() > CELL_LENGTH) {
                     int splitTimes = tweets.get(i).length() / CELL_LENGTH;
-                    tableModel.addRow(new Object[]{handles.get(i), splitTheTweet(tweets.get(i))});
-                    tweetTable.setRowHeight(i, 30 * (splitTimes + 1)); //adjust row height to account for more lines
+                    String splitTweet = splitTheTweet(tweets.get(i));
+                    tableModel.addRow(new Object[]{handles.get(i), splitTweet});
+                    tweetTable.setRowHeight(i, countTheLines(splitTweet));
                 } else {
                     tableModel.addRow(new Object[]{handles.get(i), tweets.get(i)});
                 }
             }
-            wrapCellText();
         } catch(Exception ex){
             messages.genericIssue();
         }
     }
-
 
     private void fillTrendTable() {
         DefaultListModel listModel = new DefaultListModel();
@@ -120,20 +118,27 @@ public class App {
 
 
    // splitting the tweet into equal parts for hard-wrapping longer messages
-    protected String[] splitTheTweet(StringBuilder tweet) {
-        return Iterables.toArray(Splitter.fixedLength(CELL_LENGTH).split(tweet), String.class);
+    protected String splitTheTweet(StringBuilder tweet) {
+        String newLine = "<br>";
+        String result = "<html>"+WordWrap.from(tweet.toString()).maxWidth(CELL_LENGTH).newLine(newLine).insertHyphens(true).wrap() + "</html>";
+        return result;
     }
 
+    protected int countTheLines(String result){
+        int count = 0;
+        String breakString = "<br>";
+        int lastIndex = 0;
 
-    /**
-     * https://stackoverflow.com/questions/9955595/how-to-display-multiple-lines-in-a-jtable-cell
-     * wrapping text in cells.
-     */
-    private void wrapCellText(){
-        MultiLineCellRenderer renderer = new MultiLineCellRenderer();
-        tweetTable.getColumnModel().getColumn(1).setCellRenderer(renderer);
+        while(lastIndex != -1){
+            lastIndex = result.indexOf(breakString, lastIndex);
+            if(lastIndex != -1){
+                count++;
+                lastIndex += breakString.length();
+            }
+        }
+        System.out.println(count);
+        return count * 40 +5; //accounting for spacing of character size
     }
-
 
     public static void main(String[] args) throws TwitterException {
         JFrame frame = new JFrame("Twitter Tweet Finder");

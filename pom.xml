@@ -28,11 +28,11 @@
             <version>[4.0,)</version>
         </dependency>
 
-        <!-- parsing strings with guava -->
+        <!-- word-wrap https://github.com/davidmoten/word-wrap -->
         <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>30.1.1-jre</version>
+            <groupId>com.github.davidmoten</groupId>
+            <artifactId>word-wrap</artifactId>
+            <version>0.1.9</version>
         </dependency>
     </dependencies>
     
